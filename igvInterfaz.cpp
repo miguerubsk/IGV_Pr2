@@ -14,15 +14,12 @@ igvInterfaz::~igvInterfaz() {}
 
 // Metodos publicos ----------------------------------------
 
-void igvInterfaz::configura_entorno(int argc, char** argv,
-	int _ancho_ventana, int _alto_ventana,
-	int _pos_X, int _pos_Y,
-	string _titulo) {
-	// inicialización de las variables de la interfaz
+void igvInterfaz::configura_entorno(int argc, char** argv, int _ancho_ventana, int _alto_ventana, int _pos_X, int _pos_Y, string _titulo) {
+	// inicializaciï¿½n de las variables de la interfaz
 	ancho_ventana = _ancho_ventana;
 	alto_ventana = _alto_ventana;
 
-	// inicialización de la ventana de visualización
+	// inicializaciï¿½n de la ventana de visualizaciï¿½n
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGB | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowSize(_ancho_ventana, _alto_ventana);
