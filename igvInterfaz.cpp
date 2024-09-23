@@ -45,7 +45,7 @@ igvInterfaz& igvInterfaz::getInstancia() {
 void igvInterfaz::configura_entorno(int argc, char** argv
                                     , int _ancho_ventana, int _alto_ventana
                                     , int _pos_X, int _pos_Y
-                                    , std::string _titulo) { // inicializaci�n de los atributos de la interfaz
+                                    , const std::string& _titulo) { // inicializaci�n de los atributos de la interfaz
     ancho_ventana = _ancho_ventana;
     alto_ventana = _alto_ventana;
 
@@ -97,15 +97,41 @@ void igvInterfaz::inicia_bucle_visualizacion() {
  * @pre Se asume que todos los par�metros tienen valores v�lidos
  * @post La escena puede cambiar dependiendo de la tecla pulsada
  */
-void igvInterfaz::keyboardFunc(unsigned char key, int x, int y) {
+void igvInterfaz::keyboardFunc(const unsigned char key, int x, int y) {
     switch (key) {
-    case 'e': // activa/desactiva la visualizaci�n de los ejes
-    case 'E':
-        _instancia->escena.set_ejes(!_instancia->escena.get_ejes());
-        break;
-    case 27: // tecla de escape para SALIR
-        exit(1);
-        break;
+        case 'e': // activa/desactiva la visualizaci�n de los ejes
+        case 'E':
+            _instancia->escena.set_ejes(!_instancia->escena.get_ejes());
+            break;
+        case 'y':
+            if (_instancia->escena.yMax > 1) {
+                _instancia->escena.yMax--;
+            }
+            break;
+        case 'Y':
+            _instancia->escena.yMax++;
+            break;
+        case 'z':
+            if (_instancia->escena.zMax > 1) {
+                _instancia->escena.zMax--;
+            }
+            break;
+        case 'x':
+            if (_instancia->escena.xMax > 1) {
+                _instancia->escena.xMax--;
+            }
+            break;
+        case 'X':
+            _instancia->escena.xMax++;
+            break;
+        case 'Z':
+            _instancia->escena.zMax++;
+            break;
+        case 27: // tecla de escape para SALIR
+            exit(1);
+            break;
+        default:
+            break;
     }
     glutPostRedisplay(); // renueva el contenido de la ventana de vision
 }
@@ -114,10 +140,10 @@ void igvInterfaz::keyboardFunc(unsigned char key, int x, int y) {
  * M�todo que define la c�mara de visi�n y el viewport. Se llama autom�ticamente
  * cuando se cambia el tama�o de la ventana.
  * @param w Nuevo ancho de la ventana
- * @param h Nuevo alto de la ventana
+ * @param  h Nuevo alto de la ventana
  * @pre Se asume que todos los par�metros tienen valores v�lidos
  */
-void igvInterfaz::reshapeFunc(int w, int h) { // dimensiona el viewport al nuevo ancho y alto de la ventana
+void igvInterfaz::reshapeFunc(const int w, const int h) { // dimensiona el viewport al nuevo ancho y alto de la ventana
     glViewport(0, 0, (GLsizei)w, (GLsizei)h);
 
     // guardamos valores nuevos de la ventana de visualizacion
@@ -169,7 +195,7 @@ void igvInterfaz::inicializa_callbacks() {
  * M�todo para consultar el ancho de la ventana de visualizaci�n
  * @return El valor almacenado como ancho de la ventana de visualizaci�n
  */
-int igvInterfaz::get_ancho_ventana() {
+int igvInterfaz::get_ancho_ventana() const {
     return ancho_ventana;
 }
 
@@ -177,7 +203,7 @@ int igvInterfaz::get_ancho_ventana() {
  * M�todo para consultar el alto de la ventana de visualizaci�n
  * @return El valor almacenado como alto de la ventana de visualizaci�n
  */
-int igvInterfaz::get_alto_ventana() {
+int igvInterfaz::get_alto_ventana() const {
     return alto_ventana;
 }
 
@@ -187,7 +213,7 @@ int igvInterfaz::get_alto_ventana() {
  * @pre Se asume que el par�metro tiene un valor v�lido
  * @post El ancho de ventana almacenado en la aplicaci�n cambia al nuevo valor
  */
-void igvInterfaz::set_ancho_ventana(int _ancho_ventana) {
+void igvInterfaz::set_ancho_ventana(const int _ancho_ventana) {
     ancho_ventana = _ancho_ventana;
 }
 
@@ -197,6 +223,6 @@ void igvInterfaz::set_ancho_ventana(int _ancho_ventana) {
  * @pre Se asume que el par�metro tiene un valor v�lido
  * @post El alto de ventana almacenado en la aplicaci�n cambia al nuevo valor
  */
-void igvInterfaz::set_alto_ventana(int _alto_ventana) {
+void igvInterfaz::set_alto_ventana(const int _alto_ventana) {
     alto_ventana = _alto_ventana;
 }

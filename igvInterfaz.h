@@ -51,17 +51,17 @@ public:
     void configura_entorno(int argc, char** argv // par�metros del main
                            , int _ancho_ventana, int _alto_ventana // ancho y alto de la ventana de visualizaci�n
                            , int _pos_X, int _pos_Y // posici�n inicial de la ventana de visualizaci�n
-                           , std::string _titulo // t�tulo de la ventana de visualizaci�n
+                           , const std::string& _titulo // t�tulo de la ventana de visualizaci�n
     );
-    void create_menu(); // Creates a menu that is handled with the right button of the mouse.
+    static void create_menu(); // Creates a menu that is handled with the right button of the mouse.
 
-    void inicializa_callbacks(); // inicializa todos los callbacks
+    static void inicializa_callbacks(); // inicializa todos los callbacks
 
-    void inicia_bucle_visualizacion(); // visualiza la escena y espera a eventos sobre la interfaz
+    static void inicia_bucle_visualizacion(); // visualiza la escena y espera a eventos sobre la interfaz
 
     // m�todos get_ y set_ de acceso a los atributos
-    int get_ancho_ventana();
-    int get_alto_ventana();
+    int get_ancho_ventana() const;
+    int get_alto_ventana() const;
 
     void set_ancho_ventana(int _ancho_ventana);
     void set_alto_ventana(int _alto_ventana);

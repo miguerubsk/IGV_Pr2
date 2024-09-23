@@ -22,6 +22,11 @@ public:
     const char* Nombre_EscenaB = "Escena B"; ///< Etiqueta de la escena B
     const char* Nombre_EscenaC = "Escena C"; ///< Etiqueta de la escena C
 
+
+    int yMax = 3;
+    int zMax = 3;
+    int xMax = 3;
+
 private:
     // Atributos
     bool ejes = true; ///< Indica si hay que dibujar los ejes coordenados o no
@@ -38,13 +43,38 @@ public:
     // m�todo con las llamadas OpenGL para visualizar la escena
     void visualizar(int escena);
 
-    bool get_ejes();
+    int get_y_max() const {
+        return yMax;
+    }
+
+    void set_y_max(const int y_max) {
+        yMax = y_max;
+    }
+
+    int get_z_max() const {
+        return zMax;
+    }
+
+    void set_z_max(const int z_max) {
+        zMax = z_max;
+    }
+
+    int get_x_max() const {
+        return xMax;
+    }
+
+    void set_x_max(const int x_max) {
+        xMax = x_max;
+    }
+
+    bool get_ejes() const;
     void set_ejes(bool _ejes);
+    static void pintarCaja();
 
 private:
-    void renderEscenaA();
-    void renderEscenaB();
-    void renderEscenaC();
+    static void renderEscenaA();
+    void renderEscenaB() const;
+    void renderEscenaC() const;
     static void pintar_ejes();
 };
 
