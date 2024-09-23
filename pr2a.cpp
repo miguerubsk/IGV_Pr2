@@ -2,23 +2,18 @@
 
 #include "igvInterfaz.h"
 
-// Objetos globales
-// objeto que contiene la configuración y la interacción con la ventana de visualización
-igvInterfaz interfaz;
+int main(int argc, char** argv) { // inicializa la ventana de visualizaciï¿½n
+    igvInterfaz::getInstancia().configura_entorno(argc, argv
+                                                  , 500, 500 // tamaï¿½o de la ventana
+                                                  , 100, 100 // posiciï¿½n de la ventana
+                                                  , "CG&V. Practice 2A" // tï¿½tulo de la ventana
+    );
 
-int main (int argc, char** argv) {
-	// inicializa la ventana de visualizacion
-	interfaz.configura_entorno(argc,argv,
-                                500,500, // tama–o de la ventana
-                                100,100, // posicion de la ventana
-                                "Informatica Grafica y Visualizacion. Practica 2A." // titulo de la ventana
-                                );
+    // establece las funciones callback para la gestiï¿½n de los eventos
+    igvInterfaz::getInstancia().inicializa_callbacks();
 
-	// establece las funciones callbacks para la gestion de los eventos
-	interfaz.inicializa_callbacks();
+    // inicia el bucle de visualizaciï¿½n de OpenGL
+    igvInterfaz::getInstancia().inicia_bucle_visualizacion();
 
-	// inicia el bucle de visualizacion de OpenGL
-	interfaz.inicia_bucle_visualizacion();
-
-	return(0);
+    return (0);
 }

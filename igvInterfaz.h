@@ -4,63 +4,67 @@
 #if defined(__APPLE__) && defined(__MACH__)
 
 #include <GLUT/glut.h>
-
 #include <OpenGL/gl.h>
-
 #include <OpenGL/glu.h>
 
 #else
 #include <GL/glut.h>
-#endif
+#endif   // defined(__APPLE__) && defined(__MACH__)
 
 #include <string>
 #include "igvEscena3D.h"
 
-using namespace std;
-
+/**
+ * Los objetos de esta clase encapsulan la interfaz y el estado de la aplicaciï¿½n
+ */
 class igvInterfaz {
-	protected:
-		// Atributos
-		int ancho_ventana; // ancho inicial de la ventana de visualizacion
-		int alto_ventana;  // alto inicial de la ventana de visualizacion
+private:
+    // Atributos
+    int ancho_ventana = 0; ///< Ancho de la ventana de visualizaciï¿½n
+    int alto_ventana = 0; ///< Alto de la ventana de visualizaciï¿½n
 
-        igvEscena3D escena; // escena que se visualiza en la ventana definida por igvInterfaz
+    igvEscena3D escena; ///< Escena que se visualiza en la ventana definida por igvInterfaz
 
-        int menuSelection;
+    int menuSelection = 0; ///< ï¿½ltima opciï¿½n de menï¿½ seleccionada
 
-	public:
-		// Constructores por defecto y destructor
-		igvInterfaz();
-		~igvInterfaz();
+    // Aplicaciï¿½n del patrï¿½n Singleton
+    static igvInterfaz* _instancia; ///< Puntero al objeto ï¿½nico de la clase
+    igvInterfaz();
 
-		// Metodos estáticos
-		// callbacks de eventos
-		static void set_glutKeyboardFunc(unsigned char key, int x, int y); // metodo para control de eventos del teclado
-		static void set_glutReshapeFunc(int w, int h); // método que define la camara de vision y el viewport
-		                                               // se llama automáticamente cuano se camba el tamaño de la ventana
-		static void set_glutDisplayFunc(); // método para visualizar la escena
-		static void menuHandle(int value); // method to handle the menu
+public:
+    static igvInterfaz& getInstancia();
+
+    /// Destructor
+    ~igvInterfaz() = default;
+
+    // Mï¿½todos estï¿½ticos
+    // callbacks de eventos
+    static void keyboardFunc(unsigned char key, int x, int y); // mï¿½todo para control de eventos del teclado
+    static void reshapeFunc(int w, int h); // mï¿½todo que define la cï¿½mara de vision y el viewport
+    // se llama automï¿½ticamente cuando se cambia el tamaï¿½o de la ventana
+    static void displayFunc(); // mï¿½todo para visualizar la escena
+    static void menuHandle(int value); // mï¿½todo para gestionar la selecciï¿½n de opciones de menï¿½
 
 
-		// Metodos
-		// inicializa todos los parámetros para crear una ventana de visualización
-		void configura_entorno(int argc, char** argv, // parametros del main
-			                     int _ancho_ventana, int _alto_ventana, // ancho y alto de la ventana de visualización
-			                     int _pos_X, int _pos_Y, // posicion inicial de la ventana de visualización
-													 string _titulo // título de la ventan de visualización
-													 );
-		void create_menu(); // Create a menu that is handle with the right button of the mouse.
+    // Mï¿½todos
+    // inicializa todos los parï¿½metros para crear una ventana de visualizaciï¿½n
+    void configura_entorno(int argc, char** argv // parï¿½metros del main
+                           , int _ancho_ventana, int _alto_ventana // ancho y alto de la ventana de visualizaciï¿½n
+                           , int _pos_X, int _pos_Y // posiciï¿½n inicial de la ventana de visualizaciï¿½n
+                           , std::string _titulo // tï¿½tulo de la ventana de visualizaciï¿½n
+    );
+    void create_menu(); // Creates a menu that is handled with the right button of the mouse.
 
-		void inicializa_callbacks(); // inicializa todas los callbacks
+    void inicializa_callbacks(); // inicializa todos los callbacks
 
-		void inicia_bucle_visualizacion(); // visualiza la escena y espera a eventos sobre la interfaz
+    void inicia_bucle_visualizacion(); // visualiza la escena y espera a eventos sobre la interfaz
 
-		// métodos get_ y set_ de acceso a los atributos
-		int get_ancho_ventana(){return ancho_ventana;};
-		int get_alto_ventana(){return alto_ventana;};
+    // mï¿½todos get_ y set_ de acceso a los atributos
+    int get_ancho_ventana();
+    int get_alto_ventana();
 
-		void set_ancho_ventana(int _ancho_ventana){ancho_ventana = _ancho_ventana;};
-		void set_alto_ventana(int _alto_ventana){alto_ventana = _alto_ventana;};
+    void set_ancho_ventana(int _ancho_ventana);
+    void set_alto_ventana(int _alto_ventana);
 };
 
-#endif
+#endif   // __IGVINTERFAZ

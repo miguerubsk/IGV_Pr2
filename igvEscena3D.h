@@ -7,46 +7,45 @@
 #include <OpenGL/glu.h>
 #else
 #include <GL/glut.h>
-#endif
+#endif   // defined(__APPLE__) && defined(__MACH__)
 
+/**
+ * Los objetos de esta clase representan escenas 3D para su visualizaciï¿½n
+ */
 class igvEscena3D {
-    public:
-        const int EscenaA = 1;
-		const int EscenaB = 2;
-		const int EscenaC = 3;
-		int yMax = 3;
-		int zMax = 3;
-		int xMax = 3;
+public:
+    const int EscenaA = 1; ///< Identificador interno de la escena A
+    const int EscenaB = 2; ///< Identificador interno de la escena B
+    const int EscenaC = 3; ///< Identificador interno de la escena C
 
+    const char* Nombre_EscenaA = "Escena A"; ///< Etiqueta de la escena A
+    const char* Nombre_EscenaB = "Escena B"; ///< Etiqueta de la escena B
+    const char* Nombre_EscenaC = "Escena C"; ///< Etiqueta de la escena C
 
-		const char *Nombre_EscenaA = "Escena A";
-		const char *Nombre_EscenaB = "Escena B";
-		const char* Nombre_EscenaC = "Escena C";
+private:
+    // Atributos
+    bool ejes = true; ///< Indica si hay que dibujar los ejes coordenados o no
+    // TODO: Declarar atributos para manejar las transformaciones para las escenas B y C
 
-	protected:
-		// Atributos
-		bool ejes;
-        // Declarar variables para manejar las transformaciones para la escena B
+public:
+    // Constructores por defecto y destructor
+    /// Constructor por defecto
+    igvEscena3D() = default;
+    /// Destructor
+    ~igvEscena3D() = default;
 
+    // Mï¿½todos
+    // mï¿½todo con las llamadas OpenGL para visualizar la escena
+    void visualizar(int escena);
 
-	public:
-		// Constructores por defecto y destructor
-		igvEscena3D();
-		~igvEscena3D();
+    bool get_ejes();
+    void set_ejes(bool _ejes);
 
-		// Métodos
-		// método con las llamadas OpenGL para visualizar la escena
-        void visualizar(int escena);
-
-		bool get_ejes() {return ejes;};
-		void set_ejes(bool _ejes){ejes = _ejes;};
-
-    protected:
-        void renderEscenaA();
-        void renderEscenaB();
-		void renderEscenaC();
-		void pintarCaja();
-
+private:
+    void renderEscenaA();
+    void renderEscenaB();
+    void renderEscenaC();
+    static void pintar_ejes();
 };
 
-#endif
+#endif   // __IGVESCENA3D
